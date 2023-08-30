@@ -1,0 +1,139 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    {% load static %}
+    <style>
+        body {
+            padding-top: 70px;
+            background-color: #f8f9fa;
+        }
+        .navbar {
+            background-color: #42566a;
+        }
+        .navbar-brand {
+            font-size: 24px;
+            color: #ffffff;
+        }
+        .navbar-toggler-icon {
+            background-color: #ffffff;
+        }
+        .navbar-nav .nav-link {
+            color: #ffffff;
+        }
+        .navbar-nav .nav-link:hover {
+            color: #f8f9fa;
+        }
+        .container-fluid {
+            background-color: #f8f9fa;
+            padding-top: 20px;
+        }
+        .sidebar {
+            height: calc(100vh - 56px);
+            overflow-y: auto;
+            background-color: #114a84;
+            color: #dee2e6;
+        }
+        .nav-link.active {
+            background-color: #0e3b68;
+        }
+    </style>
+    </head>
+    <body>
+         <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="#"> <img src="{% static 'images/smitten logo.webp' %}" height="50px" width="50px" class="rounded-circle"> Smitten Cosmetics</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{% url 'index' %}">Home</a>
+                        </li>
+                        <!-- <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login1' %}">Login</a>
+                        </li> -->
+                        <!-- <li class="nav-item">
+                            <a class="nav-link" href="{% url 'signup' %}">Registration</a>
+                        </li> -->
+                        <!-- <div class="col">
+                            <ul class="nav">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        Categories
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        {% for category in prodct %}
+                                           
+                                            <a class="dropdown-item" href="{% url 'categorized_products' category.id %}">{{ category.ca }}</a>
+                                            <div class="dropdown-divider"></div>
+                                        {% endfor %}
+                                    </div>
+                                </li>
+                            </ul>
+                        </div> -->
+                        
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'cart' %}">
+                                <i class="fas fa-shopping-cart"></i> Cart
+                            </a>
+                        </li>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout1' %}">Logout</a>
+                    </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+
+<section style="background-color: #eee;">
+    <div class="text-center container py-5">
+        {% for category in categories %}
+        <h4 class="mt-4 mb-5"><strong>{{ category.ca }}</strong></h4>
+        <!-- <h5><a href="https://www.purplle.com/catalog/reco?type=fr&tenant=PURPLLE_COM&sub_tenant=MAIN_SITE&module=&module_id=&size=16&actual_size=100&module_type=reco&widget_type=fr&x_id=feature%2Freco%2Ffr" target="_blank">View all</a></h5> -->
+
+        <div class="row">
+            {% for product in products %}
+            <div class="col-lg-4 col-md-12 mb-4">
+                <div class="card">
+                    <div class="bg-image hover-zoom ripple ripple-surface ripple-surface-light"
+                        data-mdb-ripple-color="light">
+                        <img src="{{ product.image.url }}"
+                            class="w-100" />
+
+                        <div class="hover-overlay">
+                            <div class="mask" style="background-color: rgba(251, 251, 251, 0.15);"></div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <a href="#" class="text-reset">
+                            <h5 class="card-title mb-3">{{ product.product }}</h5>
+                        </a>
+                        <a href="#" class="text-reset">
+                            <p style="color: green;">{{ product.description }}</p>
+                        </a>
+                        <h6 class="mb-3"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-currency-rupee" viewBox="0 0 16 16">
+                                <path
+                                    d="M4 3.06h2.726c1.22 0 2.12.575 2.325 1.724H4v1.051h5.051C8.855 7.001 8 7.558 6.788 7.558H4v1.317L8.437 14h2.11L6.095 8.884h.855c2.316-.018 3.465-1.476 3.688-3.049H12V4.784h-1.345c-.08-.778-.357-1.335-.793-1.732H12V2H4v1.06Z" />
+                            </svg>{{ product.price }}</h6>
+                        <a href="{%  url 'cart_details' product.id %}" class="btn btn-primary">Add to Cart</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endfor %}
+</body>
+</html>

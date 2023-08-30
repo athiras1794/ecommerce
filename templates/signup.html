@@ -1,0 +1,229 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.4/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        /* Global styles */
+        body {
+            padding-top: 70px;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-image: url('{% static 'images/course.jpg' %}');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 190vh;
+        }
+        
+        .navbar {
+            background-color: #42566a;
+        }
+        
+        .navbar-brand {
+            font-size: 24px;
+            color: #ffffff;
+        }
+        
+        .navbar-dark .navbar-toggler-icon {
+            background-color: #ffffff;
+        }
+        
+        .navbar-nav .nav-link {
+            color: #ffffff;
+        }
+        
+        .navbar-nav .nav-link:hover {
+            color: #f8f9fa;
+        }
+
+        /* Create Account form styles */
+        .create-account-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin-top: 50px;
+        }
+
+        .create-account-card {
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+            margin-top: 20px;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .create-account-card-title {
+            font-size: 24px;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .create-account-form {
+            padding: 20px;
+        }
+
+        .create-account-form .form-group label {
+            font-weight: bold;
+        }
+
+        .create-account-form button[type="submit"] {
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .create-account-form button[type="submit"]:hover {
+            background-color: #258cd1;
+        }
+
+        .create-account-footer {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .create-account-footer a {
+            color: #3498db;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#"><img src="{% static 'images/smitten logo.webp' %}" height="50px" width="50px" class="rounded-circle"> Smitten Cosmetics</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item ">
+                        <a class="nav-link" href="{% url 'index' %}">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login1' %}">Login</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="">Registration</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Categories
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Category 1</a>
+                            <a class="dropdown-item" href="#">Category 2</a>
+                            <a class="dropdown-item" href="#">Category 3</a>
+                            <!-- Add more categories here -->
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'cart'  %}">
+                            <i class="fas fa-shopping-cart"></i> Cart
+                        </a>
+                    </li>
+                   
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="create-account-container">
+        <div class="create-account-card">
+            <h3 class="create-account-card-title">Create Account</h3>
+            <form class="create-account-form" action="{% url 'reg' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="fullName">First  Name</label>
+                    <input type="text" class="form-control" id="fullName" placeholder="Enter your full name" name="fname" required>
+                </div>
+                <div class="form-group">
+                    <label for="fullName">Last  Name</label>
+                    <input type="text" class="form-control" id="fullName" placeholder="Enter your Last name" name="lname" required>
+                </div>
+                <div class="form-group">
+                    <label for="fullName">User  Name</label>
+                    <input type="text" class="form-control" id="fullName" placeholder="Enter your User name"  name="uname"required>
+                </div>
+                <div class="form-group">
+                    <label for="fullName">Address</label>
+                    <input type="text" class="form-control" id="fullName" placeholder="Address" name="add" required>
+                </div>
+                <div class="form-group">
+                    <label for="fullName">Contact Number</label>
+                    <input type="text" class="form-control" id="fullName" placeholder="Contact Number" name="cnum" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" class="form-control" id="email" placeholder="Enter your email address" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" placeholder="Enter your password" name="pass" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm your password"  name="cpass" required>
+                </div>
+                <div class="form-group">
+                    <label for="fullName">Upload</label>
+                    <input type="file" class="form-control"  name="img" required>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Create Account</button>
+                </div>
+            </form>
+            <div class="create-account-footer mt-3">
+                Already have an account? <a href="{% url 'login1' %}">Log In</a>
+            </div>
+            {% for msg in messages %}
+    <div class="alert alert-dark" role="alert">
+     {{msg}}
+      </div>
+      {% endfor %}
+        </div>
+    </div>
+    <footer class="bg-dark text-light py-4" style="margin-top: 10px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h4><p>Beauty Now Pay Later</p></h4>
+                    
+                </div>
+                <div class="col-md-4">
+                    <h4>Contact Us</h4>
+                    <p>Email: contact@example.com</p>
+                    <p>Phone: +1234567890</p>
+                    <p>Address: 123 Main Street, City, Country</p>
+                </div>
+                <div class="col-md-4">
+                    <h4>Follow Us</h4>
+                    <p>Stay updated with our latest products and offers:</p>
+                    <ul class="list-inline">
+                        <li class="list-inline-item"><a href="#"><i class="fab fa-facebook"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
+                        <li class="list-inline-item"><a href="#"><i class="fab fa-instagram"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+      </footer>
+      
+      
+</body>
+</html>
